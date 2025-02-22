@@ -45,7 +45,7 @@ public class Member {
     }
 
     public static Member createMember (String username, String password, String email, String phoneNumber) {
-        return new Member(username, password, email, phoneNumber);
+        return new Member(username.toLowerCase(), password, email, phoneNumber);
     }
 
 }
