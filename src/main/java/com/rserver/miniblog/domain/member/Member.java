@@ -48,4 +48,8 @@ public class Member {
         return new Member(username.toLowerCase(), password, email, phoneNumber);
     }
 
+    public void updatePassword (String newPassword) {
+        this.password = newPassword;
+    }
+
 }
