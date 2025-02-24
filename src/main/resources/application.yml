@@ -19,3 +19,9 @@ Spring:
     level:
       org.hibernate.SQL: debug
       org.hibernate.orm.jdbc.bind: trace
+
+jwt:
+  private-key-path: classpath:jwt/private.pem
+  public-key-path: classpath:jwt/public.pem
+  access-token-expiration: 1800000
+  refresh-token-expiration: 604800000
