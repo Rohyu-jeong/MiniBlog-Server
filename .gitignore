@@ -38,3 +38,7 @@ out/
 
 ### 환경변수 파일 ###
 .env
+
+### RSA ###
+src/main/resources/jwt/private.pem
+src/main/resources/jwt/public.pem
