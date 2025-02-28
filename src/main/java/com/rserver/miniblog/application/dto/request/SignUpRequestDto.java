@@ -26,11 +26,10 @@ public class SignUpRequestDto {
     @NotBlank(message = "이메일은 공백일 수 없습니다.")
     @Email(message = "유효한 이메일 형식이어야 합니다.")
     @Size(max = 100, message = "이메일은 100자 이하로 입력해야 합니다.")
-    @Pattern(regexp = "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", message = "유효한 이메일 형식이어야 합니다.(패턴)")
     private String email;
 
     @NotBlank(message = "전화번호는 공백일 수 없습니다.")
-    @Size(min = 13, max = 13, message = "전화번호는 3자 이상 20자 이하로 입력해야 합니다.")
+    @Size(min = 13, max = 13, message = "전화번호는 11자로 입력해야 합니다.")
     @Pattern(
             regexp = "^010-\\d{4}-\\d{4}$",
             message = "전화번호는 010-XXXX-XXXX 형식이어야 합니다."
