@@ -52,4 +52,12 @@ public class Member {
         this.password = newPassword;
     }
 
+    public void updateEmail (String newEmail) {
+        this.email = newEmail;
+    }
+
+    public void updatePhoneNumber (String newPhoneNumber) {
+        this.phoneNumber = newPhoneNumber;
+    }
+
 }
