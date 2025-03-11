@@ -65,6 +65,13 @@ public class GlobalExceptionHandler {
                 .body(ErrorResponse.of(HttpStatus.BAD_REQUEST, ex.getMessage()));
     }
 
+    @ExceptionHandler(ImageUploadException.class)
+    public ResponseEntity<ErrorResponse> handleImageUploadException (ImageUploadException ex) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 업로드 실패: " + ex.getMessage()));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleAllExceptions(Exception ex) {
         return ResponseEntity
