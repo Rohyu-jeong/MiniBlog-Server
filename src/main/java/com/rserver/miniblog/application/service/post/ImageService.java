@@ -21,9 +21,10 @@ public class ImageService {
 
     public String saveImage(MultipartFile file) {
         try {
-            File uploadFolder = new File(uploadDir);
+            String resolvedPath = System.getProperty("user.home") + "/Desktop/uploads/";
+
+            File uploadFolder = new File(resolvedPath);
             if (!uploadFolder.exists()) {
-                System.out.println("📂 업로드 폴더가 없어 새로 생성합니다: " + uploadDir);
                 uploadFolder.mkdirs();
             }
 
