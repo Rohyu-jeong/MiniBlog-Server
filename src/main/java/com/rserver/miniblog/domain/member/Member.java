@@ -27,6 +27,9 @@ public class Member {
     @Column(unique = true, nullable = false, length = 13)
     private String phoneNumber;
 
+    @Column(unique = true)
+    private String nickname;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private LoginType type;
@@ -58,6 +61,10 @@ public class Member {
 
     public void updatePhoneNumber (String newPhoneNumber) {
         this.phoneNumber = newPhoneNumber;
+    }
+
+    public void updateNickname (String newNickname) {
+        this.nickname = newNickname;
     }
 
 }
