@@ -18,7 +18,7 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/{postId}")
-    public ResponseEntity<Boolean> toggleLike (
+    public ResponseEntity<Boolean> toggleLike(
             @PathVariable Long postId,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {

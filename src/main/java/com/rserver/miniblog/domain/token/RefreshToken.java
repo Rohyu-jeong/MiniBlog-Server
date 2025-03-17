@@ -34,7 +34,7 @@ public class RefreshToken {
     @Column(nullable = false)
     private LocalDateTime expireAt;
 
-    private RefreshToken (Long memberId, String refreshToken, String deviceInfo, String ipAddress, LocalDateTime expireAt) {
+    private RefreshToken(Long memberId, String refreshToken, String deviceInfo, String ipAddress, LocalDateTime expireAt) {
         this.memberId = memberId;
         this.refreshToken = refreshToken;
         this.deviceInfo = deviceInfo;
@@ -42,7 +42,7 @@ public class RefreshToken {
         this.expireAt = expireAt;
     }
 
-    public static RefreshToken create (Long memberId, String refreshToken, String deviceInfo, String ipAddress, long refreshTokenExpirationMillis) {
+    public static RefreshToken create(Long memberId, String refreshToken, String deviceInfo, String ipAddress, long refreshTokenExpirationMillis) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime expireAt = now.plus(refreshTokenExpirationMillis, ChronoUnit.MILLIS);
 

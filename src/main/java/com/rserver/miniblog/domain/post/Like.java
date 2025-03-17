@@ -24,12 +24,12 @@ public class Like {
     @Column(nullable = false)
     private Long postId;
 
-    private Like (Long memberId, Long postId) {
+    private Like(Long memberId, Long postId) {
         this.memberId = memberId;
         this.postId = postId;
     }
 
-    public static Like createLike (Long memberId, Long postId) {
+    public static Like createLike(Long memberId, Long postId) {
         return new Like(memberId, postId);
     }
 

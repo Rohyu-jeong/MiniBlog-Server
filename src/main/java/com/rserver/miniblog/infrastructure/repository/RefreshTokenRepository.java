@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long> {
 
-    Optional<RefreshToken> findByRefreshToken (String refreshToken);
+    Optional<RefreshToken> findByRefreshToken(String refreshToken);
 
     void deleteByRefreshToken(String RefreshToken);
     int deleteByExpireAtBefore(LocalDateTime now);

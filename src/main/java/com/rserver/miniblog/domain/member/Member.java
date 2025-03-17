@@ -38,7 +38,7 @@ public class Member {
     @Column(nullable = false)
     private Role role;
 
-    private Member (String username, String encodePassword, String email, String phoneNumber) {
+    private Member(String username, String encodePassword, String email, String phoneNumber) {
         this.username = username;
         this.password = encodePassword;
         this.email = email;
@@ -47,23 +47,23 @@ public class Member {
         this.role = Role.ROLE_USER;
     }
 
-    public static Member createMember (String username, String password, String email, String phoneNumber) {
+    public static Member createMember(String username, String password, String email, String phoneNumber) {
         return new Member(username.toLowerCase(), password, email, phoneNumber);
     }
 
-    public void updatePassword (String newPassword) {
+    public void updatePassword(String newPassword) {
         this.password = newPassword;
     }
 
-    public void updateEmail (String newEmail) {
+    public void updateEmail(String newEmail) {
         this.email = newEmail;
     }
 
-    public void updatePhoneNumber (String newPhoneNumber) {
+    public void updatePhoneNumber(String newPhoneNumber) {
         this.phoneNumber = newPhoneNumber;
     }
 
-    public void updateNickname (String newNickname) {
+    public void updateNickname(String newNickname) {
         this.nickname = newNickname;
     }
 

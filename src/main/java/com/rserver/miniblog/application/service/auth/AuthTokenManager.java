@@ -5,10 +5,10 @@ import com.rserver.miniblog.application.dto.AuthToken;
 
 public interface AuthTokenManager {
 
-    AuthToken issueToken (IssueTokenInfo issueTokenInfo);
+    AuthToken issueToken(IssueTokenInfo issueTokenInfo);
 
-    IssueTokenInfo validateRefreshToken (String token);
+    IssueTokenInfo validateRefreshToken(String token);
 
-    void revokeRefreshToken (String refreshToken);
+    void revokeRefreshToken(String refreshToken);
 
 }

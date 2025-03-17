@@ -13,7 +13,7 @@ public class PostResponseDto {
     private final String content;
     private final String imageUrl;
 
-    public static PostResponseDto of (Long id, String title, String content, String imageUrl) {
+    public static PostResponseDto of(Long id, String title, String content, String imageUrl) {
         return new PostResponseDto(id, title, content, imageUrl);
     }
 

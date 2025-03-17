@@ -13,7 +13,7 @@ public class MemberResponseDto {
     private final String email;
     private final String phoneNumber;
 
-    public static MemberResponseDto of (String username, String nickname, String email, String phoneNumber) {
+    public static MemberResponseDto of(String username, String nickname, String email, String phoneNumber) {
         return new MemberResponseDto(username, nickname, email, phoneNumber);
     }
 

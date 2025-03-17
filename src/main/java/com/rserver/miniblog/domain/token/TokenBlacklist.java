@@ -35,7 +35,7 @@ public class TokenBlacklist {
         this.expireAt = expireAt;
     }
 
-    public static TokenBlacklist create (String token, Long memberId, LocalDateTime expireAt) {
+    public static TokenBlacklist create(String token, Long memberId, LocalDateTime expireAt) {
         return new TokenBlacklist(token, memberId, expireAt);
     }
 

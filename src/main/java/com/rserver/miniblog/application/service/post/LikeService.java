@@ -15,7 +15,7 @@ public class LikeService {
 
     private final LikeRepository likeRepository;
 
-    public boolean toggleLike (Long memberId, Long postId) {
+    public boolean toggleLike(Long memberId, Long postId) {
         Optional<Like> existingLike = likeRepository.findByMemberIdAndPostId(memberId, postId);
 
         if (existingLike.isPresent()) {

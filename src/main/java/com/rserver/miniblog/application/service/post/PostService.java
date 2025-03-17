@@ -17,7 +17,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final ImageService imageService;
 
-    public Long create (Long memberId, String title, String content, MultipartFile image) {
+    public Long create(Long memberId, String title, String content, MultipartFile image) {
         String imageUrl = (image != null && !image.isEmpty())
                 ? imageService.saveImage(image)
                 : null;
@@ -29,7 +29,7 @@ public class PostService {
         return post.getId();
     }
 
-//    public Long update (Long memberId, Long postId, PostRequestDto requestDto, String imageUrl) {
+//    public Long update(Long memberId, Long postId, PostRequestDto requestDto, String imageUrl) {
 //        Post post = postRepository.findById(postId)
 //                .orElseThrow(() -> new NotFoundException("게시글을 찾을 수 없습니다."));
 //
@@ -42,7 +42,7 @@ public class PostService {
 //        return post.getId();
 //    }
 
-    public PostResponseDto getPostById (Long postId) {
+    public PostResponseDto getPostById(Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("게시글을 찾을 수 없습니다"));
 

@@ -32,17 +32,17 @@ public class Comment {
     @CreationTimestamp
     private LocalDateTime createAt;
 
-    private Comment (Long memberId, Long postId, String content) {
+    private Comment(Long memberId, Long postId, String content) {
         this.memberId = memberId;
         this.postId = postId;
         this.content = content;
     }
 
-    public static Comment createComment (Long memberId, Long postId, String content) {
+    public static Comment createComment(Long memberId, Long postId, String content) {
         return new Comment(memberId, postId, content);
     }
 
-    public void updateComment (String newContent) {
+    public void updateComment(String newContent) {
         this.content = newContent;
     }
 

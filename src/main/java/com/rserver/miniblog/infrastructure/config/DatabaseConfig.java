@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 public class DatabaseConfig {
 
     @Bean
-    public DataSource dataSource () {
+    public DataSource dataSource() {
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();

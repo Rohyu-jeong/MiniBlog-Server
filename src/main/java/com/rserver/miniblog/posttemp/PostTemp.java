@@ -40,18 +40,18 @@ public class PostTemp {
     @UpdateTimestamp
     private LocalDateTime updateAt;
 
-    private PostTemp (Long memberId, String title, String content, String image) {
+    private PostTemp(Long memberId, String title, String content, String image) {
         this.memberId = memberId;
         this.title = title;
         this.content = content;
         this.image = image;
     }
 
-    public static PostTemp createPostTemp (Long memberId, String title, String content, String image) {
+    public static PostTemp createPostTemp(Long memberId, String title, String content, String image) {
         return new PostTemp(memberId, title, content, image);
     }
 
-    public void updatePostTemp (String newTitle, String newContent, String newImage) {
+    public void updatePostTemp(String newTitle, String newContent, String newImage) {
         this.title = newTitle;
         this.content = newContent;
         this.image = newImage;

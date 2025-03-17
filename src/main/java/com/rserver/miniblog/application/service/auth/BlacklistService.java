@@ -19,19 +19,19 @@ public class BlacklistService {
 
     private final TokenBlacklistRepository tokenBlacklistRepository;
 
-    public void add (String token, Long memberId, LocalDateTime expireAt) {
+    public void add(String token, Long memberId, LocalDateTime expireAt) {
         TokenBlacklist tokenBlacklist = TokenBlacklist.create(token, memberId, expireAt);
         tokenBlacklistRepository.save(tokenBlacklist);
     }
 
-    public void isTokenBlacklisted (String token) {
+    public void isTokenBlacklisted(String token) {
         if (tokenBlacklistRepository.existsByToken(token)) {
             throw new InvalidTokenException("블랙리스트에 등록된 토큰입니다.");
         }
     }
 
     @Scheduled(cron = "0 0 0 * * ?")
-    public void delete () {
+    public void delete() {
         int deleteCount = tokenBlacklistRepository.deleteByExpireAtBefore(LocalDateTime.now());
         log.info("Expired tokens deleted: {}", deleteCount);
     }

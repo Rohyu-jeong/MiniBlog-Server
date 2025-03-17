@@ -21,7 +21,7 @@ public class RefreshTokenService {
     @Value("${jwt.refresh-token-expiration}")
     private long refreshTokenExpiration;
 
-    public void save (Long memberId, String refreshToken, String deviceInfo, String ipAddress) {
+    public void save(Long memberId, String refreshToken, String deviceInfo, String ipAddress) {
         RefreshToken token = RefreshToken.create(
                 memberId,
                 refreshToken,
@@ -33,17 +33,17 @@ public class RefreshTokenService {
         refreshTokenRepository.save(token);
     }
 
-    public RefreshToken find (String refreshToken) {
+    public RefreshToken find(String refreshToken) {
         return refreshTokenRepository.findByRefreshToken(refreshToken)
                         .orElseThrow(() -> new NotFoundException("Refresh Token 정보를 찾을 수가 없습니다."));
     }
 
-    public void deleteByToken (String refreshToken) {
+    public void deleteByToken(String refreshToken) {
         refreshTokenRepository.deleteByRefreshToken(refreshToken);
     }
 
     @Scheduled(cron = "0 0 0,12 * * ?")
-    public void deleteExpiredTokens () {
+    public void deleteExpiredTokens() {
         int deleteCount = refreshTokenRepository.deleteByExpireAtBefore(LocalDateTime.now());
         log.info("Expired tokens deleted: {}", deleteCount);
     }

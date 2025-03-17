@@ -33,7 +33,7 @@ public class MemberController {
     }
 
     @PostMapping("/nickname")
-    public ResponseEntity<NicknameInfo> createNickname (
+    public ResponseEntity<NicknameInfo> createNickname(
             @Valid @RequestBody NicknameRequestDto requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
@@ -43,7 +43,7 @@ public class MemberController {
     }
 
     @PatchMapping("/password")
-    public ResponseEntity<String> updatePassword (
+    public ResponseEntity<String> updatePassword(
             @Valid @RequestBody PasswordUpdateRequestDto requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
@@ -53,7 +53,7 @@ public class MemberController {
     }
 
     @GetMapping("/contact")
-    public ResponseEntity<MemberResponseDto> getMemberInfo (
+    public ResponseEntity<MemberResponseDto> getMemberInfo(
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
         MemberResponseDto memberInfo = accountService.getMemberInfo(memberDetails.getMember().getId());
@@ -62,7 +62,7 @@ public class MemberController {
     }
 
     @PatchMapping("/contact")
-    public ResponseEntity<MemberResponseDto> updateMemberInfo (
+    public ResponseEntity<MemberResponseDto> updateMemberInfo(
             @Valid @RequestBody MemberUpdateRequestDto requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {

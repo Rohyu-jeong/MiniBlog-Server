@@ -18,7 +18,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<Void> createComment (
+    public ResponseEntity<Void> createComment(
             @Validated @RequestBody CommentRequestDto requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
@@ -28,7 +28,7 @@ public class CommentController {
     }
 
     @PatchMapping("/{commentId}")
-    public ResponseEntity<Void> updateComment (
+    public ResponseEntity<Void> updateComment(
             @PathVariable Long commentId,
             @Validated @RequestBody CommentRequestDto requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails

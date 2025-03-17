@@ -13,7 +13,7 @@ public class PostTempService {
 
     private final PostTempRepository postTempRepository;
 
-    public Long create (Long memberId, PostTempRequestDto requestDto) {
+    public Long create(Long memberId, PostTempRequestDto requestDto) {
         PostTemp post = PostTemp.createPostTemp(memberId, requestDto.getTitle(), requestDto.getContent(), requestDto.getImage());
 
         postTempRepository.save(post);
@@ -21,7 +21,7 @@ public class PostTempService {
         return post.getId();
     }
 
-    public Long update (Long memberId, Long postId, PostTempRequestDto requestDto) {
+    public Long update(Long memberId, Long postId, PostTempRequestDto requestDto) {
         PostTemp post = postTempRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("게시글을 찾을 수 없습니다."));
 
@@ -34,7 +34,7 @@ public class PostTempService {
         return post.getId();
     }
 
-    public PostTempResponseDto getPostById (Long postId) {
+    public PostTempResponseDto getPostById(Long postId) {
         PostTemp post = postTempRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("게시글을 찾을 수 없습니다"));
 

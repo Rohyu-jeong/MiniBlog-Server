@@ -17,13 +17,13 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
 
-    public void create (Long memberId, CommentRequestDto requestDto) {
+    public void create(Long memberId, CommentRequestDto requestDto) {
         Comment comment = Comment.createComment(memberId, requestDto.getPostId(), requestDto.getContent());
 
         commentRepository.save(comment);
     }
 
-    public void update (Long memberId, Long CommentId, CommentRequestDto requestDto) {
+    public void update(Long memberId, Long CommentId, CommentRequestDto requestDto) {
         Comment comment = commentRepository.findById(CommentId)
                 .orElseThrow(() -> new NotFoundException("댓글을 찾을 수 없습니다."));
 

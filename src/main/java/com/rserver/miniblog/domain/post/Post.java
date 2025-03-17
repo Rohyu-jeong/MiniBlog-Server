@@ -39,14 +39,14 @@ public class Post {
     @UpdateTimestamp
     private LocalDateTime updateAt;
 
-    private Post (Long memberId, String title, String content, String imageUrl) {
+    private Post(Long memberId, String title, String content, String imageUrl) {
         this.memberId = memberId;
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
     }
 
-    public static Post createPost (Long memberId, String title, String content, String imageUrl) {
+    public static Post createPost(Long memberId, String title, String content, String imageUrl) {
         return new Post(memberId, title, content, imageUrl);
     }
 

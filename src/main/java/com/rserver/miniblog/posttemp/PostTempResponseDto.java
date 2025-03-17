@@ -13,7 +13,7 @@ public class PostTempResponseDto {
     private final String content;
     private final String image;
 
-    public static PostTempResponseDto of (Long id, String title, String content, String image) {
+    public static PostTempResponseDto of(Long id, String title, String content, String image) {
         return new PostTempResponseDto(id, title, content, image);
     }
 
