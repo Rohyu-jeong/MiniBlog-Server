@@ -5,10 +5,8 @@ import com.rserver.miniblog.application.dto.request.NicknameRequestDto;
 import com.rserver.miniblog.application.dto.request.PasswordUpdateRequestDto;
 import com.rserver.miniblog.application.dto.request.SignUpRequestDto;
 import com.rserver.miniblog.application.dto.response.MemberResponseDto;
-import com.rserver.miniblog.application.dto.response.NicknameResponseDto;
+import com.rserver.miniblog.application.dto.internal.NicknameInfo;
 import com.rserver.miniblog.application.service.member.AccountService;
-import com.rserver.miniblog.application.service.member.MemberService;
-import com.rserver.miniblog.application.service.member.NicknameService;
 import com.rserver.miniblog.infrastructure.security.MemberDetails;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,23 +32,14 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body("회원가입이 성공적으로 완료되었습니다.");
     }
 
-    @GetMapping("/nickname")
-    public ResponseEntity<NicknameResponseDto> checkNickname (
-            @AuthenticationPrincipal MemberDetails memberDetails
-    ) {
-        NicknameResponseDto responseDto = accountService.findNicknameByMemberId(memberDetails.getMember().getId());
-
-        return ResponseEntity.ok(responseDto);
-    }
-
     @PostMapping("/nickname")
-    public ResponseEntity<NicknameResponseDto> createNickname (
+    public ResponseEntity<NicknameInfo> createNickname (
             @Valid @RequestBody NicknameRequestDto requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
-        accountService.saveNickname(memberDetails.getMember().getId(), requestDto.getNickname());
+        accountService.addNickname(memberDetails.getMember().getId(), requestDto.getNickname());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(NicknameResponseDto.of(true, requestDto.getNickname()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(NicknameInfo.of(true, requestDto.getNickname()));
     }
 
     @PatchMapping("/password")

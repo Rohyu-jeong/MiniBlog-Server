@@ -1,5 +1,6 @@
 package com.rserver.miniblog.application.service.member;
 
+import com.rserver.miniblog.application.dto.internal.NicknameInfo;
 import com.rserver.miniblog.application.dto.request.PasswordUpdateRequestDto;
 import com.rserver.miniblog.application.dto.request.SignUpRequestDto;
 import com.rserver.miniblog.domain.member.Member;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -17,7 +20,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void create (SignUpRequestDto requestDto) {
+    public void create(SignUpRequestDto requestDto) {
         String encodePassword = passwordEncoder.encode(requestDto.getPassword());
 
         Member member = Member.createMember(
@@ -30,12 +33,17 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public Member find (Long memberId) {
+    public Member find(Long memberId) {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new NotFoundException("멤버 정보를 찾을 수가 없습니다."));
     }
 
-    public void updatePassword (Member member, PasswordUpdateRequestDto requestDto) {
+    public NicknameInfo getNicknameInfo(String username) {
+        Optional<String> nicknameOpt = memberRepository.findNicknameByUsername(username);
+        return NicknameInfo.of(nicknameOpt.isPresent(), nicknameOpt.orElse(null));
+    }
+
+    public void updatePassword(Member member, PasswordUpdateRequestDto requestDto) {
         if (!passwordEncoder.matches(requestDto.getCurrentPassword(), member.getPassword())) {
             throw new InvalidTokenException("현재 비밀번호가 일치하지 않습니다.");
         }

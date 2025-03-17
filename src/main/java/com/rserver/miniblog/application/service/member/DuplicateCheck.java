@@ -3,7 +3,6 @@ package com.rserver.miniblog.application.service.member;
 import com.rserver.miniblog.application.dto.request.SignUpRequestDto;
 import com.rserver.miniblog.exception.DuplicateException;
 import com.rserver.miniblog.infrastructure.repository.MemberRepository;
-import com.rserver.miniblog.infrastructure.repository.NicknameRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 public class DuplicateCheck {
 
     private final MemberRepository memberRepository;
-    private final NicknameRepository nicknameRepository;
 
     public void validateForRegistration(SignUpRequestDto requestDto) throws DuplicateException {
         checkUsername(requestDto.getUsername());
@@ -42,7 +40,7 @@ public class DuplicateCheck {
     }
 
     public void checkNickname(String nickname) {
-        if(nicknameRepository.existsByNickname(nickname)) {
+        if(memberRepository.existsByNickname(nickname)) {
             throw new DuplicateException("이미 사용중인 닉네임입니다.");
         }
     }
