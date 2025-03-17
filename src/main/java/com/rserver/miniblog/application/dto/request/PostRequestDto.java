@@ -5,13 +5,10 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Validated
 public class PostRequestDto {
 
     @NotBlank(message = "제목을 입력해야 합니다.")
@@ -20,7 +17,5 @@ public class PostRequestDto {
 
     @NotBlank(message = "내용을 입력해야 합니다.")
     private String content;
-
-    private MultipartFile image;
 
 }

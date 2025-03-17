@@ -27,4 +27,4 @@ jwt:
   refresh-token-expiration: 604800000
 
 image:
-  upload-dir: "${USERPROFILE}/Desktop/uploads/"
+  upload-dir: "C:/Users/사용자/Desktop/uploads/"

@@ -1,14 +1,13 @@
 package com.rserver.miniblog.posttemp;
 
-import com.rserver.miniblog.application.dto.request.PostRequestDto;
 import com.rserver.miniblog.application.dto.response.PostResponseDto;
-import com.rserver.miniblog.application.service.post.ImageService;
 import com.rserver.miniblog.application.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("api/v1/public/posts")
@@ -17,12 +16,15 @@ import org.springframework.web.bind.annotation.*;
 public class PublicPostController {
 
     private final PostService postService;
-    private final ImageService imageService;
     private final PostTempService postTempService;
 
     @PostMapping(consumes = "multipart/form-data")
-    public ResponseEntity<Long> createPost(@ModelAttribute PostRequestDto requestDto) {
-        Long postId = postService.create(1L, requestDto);
+    public ResponseEntity<Long> createPost(
+            @RequestPart("title") String title,
+            @RequestPart("content") String content,
+            @RequestPart(value = "image", required = false) MultipartFile image
+    ) {
+        Long postId = postService.create(1L, title, content, image);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(postId);
     }

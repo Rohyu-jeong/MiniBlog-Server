@@ -1,14 +1,13 @@
 package com.rserver.miniblog.application.service.post;
 
-import com.rserver.miniblog.application.dto.request.PostRequestDto;
 import com.rserver.miniblog.application.dto.response.PostResponseDto;
 import com.rserver.miniblog.domain.post.Post;
 import com.rserver.miniblog.exception.NotFoundException;
-import com.rserver.miniblog.exception.UnauthorizedException;
 import com.rserver.miniblog.infrastructure.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -18,12 +17,12 @@ public class PostService {
     private final PostRepository postRepository;
     private final ImageService imageService;
 
-    public Long create (Long memberId, PostRequestDto requestDto) {
-        String imageUrl = (requestDto.getImage() != null && !requestDto.getImage().isEmpty())
-                ? imageService.saveImage(requestDto.getImage())
+    public Long create (Long memberId, String title, String content, MultipartFile image) {
+        String imageUrl = (image != null && !image.isEmpty())
+                ? imageService.saveImage(image)
                 : null;
 
-        Post post = Post.createPost(memberId, requestDto.getTitle(), requestDto.getContent(), imageUrl);
+        Post post = Post.createPost(memberId, title, content, imageUrl);
 
         postRepository.save(post);
 
