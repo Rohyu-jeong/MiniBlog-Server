@@ -1,11 +1,11 @@
 package com.rserver.miniblog.application.service.auth;
 
 import com.rserver.miniblog.application.dto.internal.IssueTokenInfo;
-import com.rserver.miniblog.application.dto.response.TokenResponseDto;
+import com.rserver.miniblog.application.dto.AuthToken;
 
 public interface AuthTokenManager {
 
-    TokenResponseDto issueToken (IssueTokenInfo issueTokenInfo);
+    AuthToken issueToken (IssueTokenInfo issueTokenInfo);
 
     IssueTokenInfo validateRefreshToken (String token);
 

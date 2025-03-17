@@ -2,7 +2,8 @@ package com.rserver.miniblog.application.service.auth;
 
 import com.rserver.miniblog.application.dto.internal.IssueTokenInfo;
 import com.rserver.miniblog.application.dto.request.LoginRequestDto;
-import com.rserver.miniblog.application.dto.response.TokenResponseDto;
+import com.rserver.miniblog.application.dto.AuthToken;
+import com.rserver.miniblog.application.dto.response.LoginResponseDto;
 import com.rserver.miniblog.infrastructure.security.MemberDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,7 +21,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final AuthTokenManager authTokenManager;
 
-    public TokenResponseDto login(LoginRequestDto requestDto, String ipAddress) {
+    public AuthToken login(LoginRequestDto requestDto, String ipAddress) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(requestDto.getUsername().toLowerCase(), requestDto.getPassword())
         );
@@ -32,7 +33,7 @@ public class AuthService {
         return authTokenManager.issueToken(issueTokenInfo);
     }
 
-    public TokenResponseDto reissue (String refreshToken) {
+    public AuthToken reissue(String refreshToken) {
         IssueTokenInfo tokenInfo = authTokenManager.validateRefreshToken(refreshToken);
         authTokenManager.revokeRefreshToken(refreshToken);
 
@@ -41,7 +42,7 @@ public class AuthService {
         return  authTokenManager.issueToken(issueTokenInfo);
     }
 
-    public void logout (String refreshToken) {
+    public void logout(String refreshToken) {
         authTokenManager.revokeRefreshToken(refreshToken);
     }
 

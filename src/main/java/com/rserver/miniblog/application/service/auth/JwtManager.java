@@ -2,7 +2,7 @@ package com.rserver.miniblog.application.service.auth;
 
 import com.rserver.miniblog.application.dto.internal.JwtClaims;
 import com.rserver.miniblog.application.dto.internal.IssueTokenInfo;
-import com.rserver.miniblog.application.dto.response.TokenResponseDto;
+import com.rserver.miniblog.application.dto.AuthToken;
 import com.rserver.miniblog.application.service.member.MemberService;
 import com.rserver.miniblog.domain.member.Member;
 import com.rserver.miniblog.domain.token.RefreshToken;
@@ -23,7 +23,7 @@ public class JwtManager implements AuthTokenManager{
     private final JwtProvider jwtProvider;
 
     @Override
-    public TokenResponseDto issueToken(IssueTokenInfo issueTokenInfo) {
+    public AuthToken issueToken(IssueTokenInfo issueTokenInfo) {
         JwtClaims claims = JwtClaims.from(issueTokenInfo.getMember(), issueTokenInfo.getDeviceInfo(), issueTokenInfo.getIpAddress());
 
         String accessToken = jwtProvider.generateAccessToken(claims);
@@ -31,7 +31,7 @@ public class JwtManager implements AuthTokenManager{
 
         refreshTokenService.save(claims.getMemberId(), refreshToken, claims.getDeviceInfo(), claims.getIpAddress());
 
-        return TokenResponseDto.of(accessToken, refreshToken);
+        return AuthToken.of(accessToken, refreshToken);
     }
 
     @Override
