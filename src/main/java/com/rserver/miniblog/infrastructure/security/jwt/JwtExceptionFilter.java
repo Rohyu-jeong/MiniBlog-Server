@@ -1,7 +1,6 @@
 package com.rserver.miniblog.infrastructure.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rserver.miniblog.application.dto.response.ErrorResponse;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
