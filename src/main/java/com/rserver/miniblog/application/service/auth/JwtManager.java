@@ -40,9 +40,7 @@ public class JwtManager implements AuthTokenManager{
 
         RefreshToken token = refreshTokenService.find(refreshToken);
 
-        if (token.getExpireAt().isBefore(LocalDateTime.now())) {
-            throw new InvalidTokenException("토큰이 만료되었습니다.");
-        }
+        token.validateExpiration();
 
         Member member = memberService.find(token.getMemberId());
 
