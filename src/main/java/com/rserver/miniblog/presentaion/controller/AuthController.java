@@ -1,11 +1,10 @@
 package com.rserver.miniblog.presentaion.controller;
 
-import com.rserver.miniblog.application.dto.internal.NicknameInfo;
 import com.rserver.miniblog.application.dto.request.LoginRequestDto;
 import com.rserver.miniblog.application.dto.request.RefreshTokenRequestDto;
 import com.rserver.miniblog.application.dto.AuthToken;
 import com.rserver.miniblog.application.dto.response.ApiResponse;
-import com.rserver.miniblog.application.dto.response.LoginResponseDto;
+import com.rserver.miniblog.application.dto.response.LoginResponse;
 import com.rserver.miniblog.application.service.auth.AuthService;
 import com.rserver.miniblog.application.service.member.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,12 +26,12 @@ public class AuthController {
     private final MemberService memberService;
 
     @PostMapping("/login")
-    public ApiResponse<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto requestDto, HttpServletRequest request) {
+    public ApiResponse<LoginResponse> login(@Valid @RequestBody LoginRequestDto requestDto, HttpServletRequest request) {
         String ipAddress = request.getRemoteAddr();
         AuthToken authToken = authService.login(requestDto, ipAddress);
-        NicknameInfo nicknameInfo = memberService.getNicknameInfo(requestDto.getUsername());
+        String nickname = memberService.findNickname(requestDto.getUsername());
 
-        LoginResponseDto responseDto = LoginResponseDto.of(authToken, nicknameInfo);
+        LoginResponse responseDto = LoginResponse.of(authToken, nickname);
 
         return ApiResponse.success(responseDto);
     }
