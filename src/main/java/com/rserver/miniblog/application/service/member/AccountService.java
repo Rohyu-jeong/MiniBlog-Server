@@ -2,7 +2,7 @@ package com.rserver.miniblog.application.service.member;
 
 import com.rserver.miniblog.application.dto.request.MemberUpdateRequestDto;
 import com.rserver.miniblog.application.dto.request.PasswordUpdateRequestDto;
-import com.rserver.miniblog.application.dto.request.SignUpRequestDto;
+import com.rserver.miniblog.application.dto.request.SignUpRequest;
 import com.rserver.miniblog.application.dto.response.MemberResponseDto;
 import com.rserver.miniblog.domain.member.Member;
 import lombok.RequiredArgsConstructor;
@@ -17,31 +17,24 @@ public class AccountService {
     private final DuplicateCheck duplicateCheck;
     private final MemberService memberService;
 
-    public void register(SignUpRequestDto requestDto) {
+    public void register(SignUpRequest requestDto) {
         duplicateCheck.validateForRegistration(requestDto);
         memberService.create(requestDto);
     }
 
-    public void addNickname(Long memberId, String nickname) {
-        duplicateCheck.checkNickname(nickname);
-        Member member = memberService.find(memberId);
-
-        member.updateNickname(nickname);
-    }
-
     public void updatePassword(Long memberId, PasswordUpdateRequestDto requestDto) {
-        Member member = memberService.find(memberId);
+        Member member = memberService.findMember(memberId);
         memberService.updatePassword(member, requestDto);
     }
 
     public MemberResponseDto getMemberInfo(Long memberId) {
-        Member member = memberService.find(memberId);
+        Member member = memberService.findMember(memberId);
 
         return MemberResponseDto.of(member.getUsername(), member.getNickname(), member.getEmail(), member.getPhoneNumber());
     }
 
     public MemberResponseDto updateMemberInfo(Long memberId, MemberUpdateRequestDto requestDto) {
-        Member member = memberService.find(memberId);
+        Member member = memberService.findMember(memberId);
 
         if (!member.getEmail().equals(requestDto.getEmail())) {
             duplicateCheck.checkEmail(requestDto.getEmail());
