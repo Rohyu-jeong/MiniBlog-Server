@@ -42,7 +42,7 @@ public class JwtManager implements AuthTokenManager{
 
         token.validateExpiration();
 
-        Member member = memberService.find(token.getMemberId());
+        Member member = memberService.findMember(token.getMemberId());
 
         return IssueTokenInfo.from(member, token.getDeviceInfo(), token.getIpAddress());
     }
