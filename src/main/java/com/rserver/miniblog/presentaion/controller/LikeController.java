@@ -1,9 +1,10 @@
 package com.rserver.miniblog.presentaion.controller;
 
+import com.rserver.miniblog.application.dto.response.ApiResponse;
+import com.rserver.miniblog.application.dto.response.LikeResponse;
 import com.rserver.miniblog.application.service.post.LikeService;
 import com.rserver.miniblog.infrastructure.security.MemberDetails;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +19,13 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/{postId}")
-    public ResponseEntity<Boolean> toggleLike(
+    public ApiResponse<LikeResponse> toggleLike(
             @PathVariable Long postId,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
         boolean isLiked = likeService.toggleLike(memberDetails.getMember().getId(), postId);
 
-        return ResponseEntity.ok(isLiked);
+        return ApiResponse.success(LikeResponse.of(isLiked));
     }
 
 }
