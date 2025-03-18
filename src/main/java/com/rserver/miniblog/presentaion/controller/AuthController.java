@@ -4,13 +4,13 @@ import com.rserver.miniblog.application.dto.internal.NicknameInfo;
 import com.rserver.miniblog.application.dto.request.LoginRequestDto;
 import com.rserver.miniblog.application.dto.request.RefreshTokenRequestDto;
 import com.rserver.miniblog.application.dto.AuthToken;
+import com.rserver.miniblog.application.dto.response.ApiResponse;
 import com.rserver.miniblog.application.dto.response.LoginResponseDto;
 import com.rserver.miniblog.application.service.auth.AuthService;
 import com.rserver.miniblog.application.service.member.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,26 +27,28 @@ public class AuthController {
     private final MemberService memberService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto requestDto, HttpServletRequest request) {
+    public ApiResponse<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto requestDto, HttpServletRequest request) {
         String ipAddress = request.getRemoteAddr();
         AuthToken authToken = authService.login(requestDto, ipAddress);
         NicknameInfo nicknameInfo = memberService.getNicknameInfo(requestDto.getUsername());
 
         LoginResponseDto responseDto = LoginResponseDto.of(authToken, nicknameInfo);
 
-        return ResponseEntity.ok(responseDto);
+        return ApiResponse.success(responseDto);
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@Valid @RequestBody RefreshTokenRequestDto requestDto) {
+    public ApiResponse<Void> logout(@Valid @RequestBody RefreshTokenRequestDto requestDto) {
         authService.logout(requestDto.getRefreshToken());
-        return ResponseEntity.noContent().build();
+
+        return ApiResponse.success();
     }
 
     @PostMapping("/reissue")
-    public ResponseEntity<AuthToken> reissue(@Valid @RequestBody RefreshTokenRequestDto requestDto) {
+    public ApiResponse<AuthToken> reissue(@Valid @RequestBody RefreshTokenRequestDto requestDto) {
         AuthToken authToken = authService.reissue(requestDto.getRefreshToken());
-        return ResponseEntity.ok(authToken);
+
+        return ApiResponse.success(authToken);
     }
 
 }
