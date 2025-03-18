@@ -21,14 +21,14 @@ public class Member {
     @Column(nullable = false, length = 100)
     private String password;
 
+    @Column(unique = true)
+    private String nickname;
+
     @Column(unique = true, nullable = false, length = 100)
     private String email;
 
     @Column(unique = true, nullable = false, length = 13)
     private String phoneNumber;
-
-    @Column(unique = true)
-    private String nickname;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -38,17 +38,18 @@ public class Member {
     @Column(nullable = false)
     private Role role;
 
-    private Member(String username, String encodePassword, String email, String phoneNumber) {
+    private Member(String username, String encodePassword, String nickname, String email, String phoneNumber) {
         this.username = username;
         this.password = encodePassword;
+        this.nickname = nickname;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.type = LoginType.APP;
         this.role = Role.ROLE_USER;
     }
 
-    public static Member createMember(String username, String password, String email, String phoneNumber) {
-        return new Member(username.toLowerCase(), password, email, phoneNumber);
+    public static Member createMember(String username, String password, String nickname, String email, String phoneNumber) {
+        return new Member(username.toLowerCase(), password, nickname, email, phoneNumber);
     }
 
     public void updatePassword(String newPassword) {
