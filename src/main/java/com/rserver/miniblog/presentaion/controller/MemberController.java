@@ -4,14 +4,13 @@ import com.rserver.miniblog.application.dto.request.MemberUpdateRequestDto;
 import com.rserver.miniblog.application.dto.request.NicknameRequestDto;
 import com.rserver.miniblog.application.dto.request.PasswordUpdateRequestDto;
 import com.rserver.miniblog.application.dto.request.SignUpRequestDto;
+import com.rserver.miniblog.application.dto.response.ApiResponse;
 import com.rserver.miniblog.application.dto.response.MemberResponseDto;
 import com.rserver.miniblog.application.dto.internal.NicknameInfo;
 import com.rserver.miniblog.application.service.member.AccountService;
 import com.rserver.miniblog.infrastructure.security.MemberDetails;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,50 +24,51 @@ public class MemberController {
     private final AccountService accountService;
 
     @PostMapping
-    public ResponseEntity<String> createMember(
+    public ApiResponse<String> createMember(
             @Valid @RequestBody SignUpRequestDto requestDto
     ) {
         accountService.register(requestDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("회원가입이 성공적으로 완료되었습니다.");
+
+        return ApiResponse.success(); // 닉네임 반환
     }
 
     @PostMapping("/nickname")
-    public ResponseEntity<NicknameInfo> createNickname(
+    public ApiResponse<NicknameInfo> createNickname(
             @Valid @RequestBody NicknameRequestDto requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
         accountService.addNickname(memberDetails.getMember().getId(), requestDto.getNickname());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(NicknameInfo.of(true, requestDto.getNickname()));
+        return ApiResponse.success(NicknameInfo.of(true, requestDto.getNickname()));
     }
 
     @PatchMapping("/password")
-    public ResponseEntity<String> updatePassword(
+    public ApiResponse<Void> updatePassword(
             @Valid @RequestBody PasswordUpdateRequestDto requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
         accountService.updatePassword(memberDetails.getMember().getId(), requestDto);
 
-        return ResponseEntity.ok("비밀번호 성공적으로 변경되었습니다.");
+        return ApiResponse.success();
     }
 
     @GetMapping("/contact")
-    public ResponseEntity<MemberResponseDto> getMemberInfo(
+    public ApiResponse<MemberResponseDto> getMemberInfo(
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
         MemberResponseDto memberInfo = accountService.getMemberInfo(memberDetails.getMember().getId());
 
-        return ResponseEntity.ok(memberInfo);
+        return ApiResponse.success(memberInfo);
     }
 
     @PatchMapping("/contact")
-    public ResponseEntity<MemberResponseDto> updateMemberInfo(
+    public ApiResponse<MemberResponseDto> updateMemberInfo(
             @Valid @RequestBody MemberUpdateRequestDto requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
         MemberResponseDto updateMemberInfo = accountService.updateMemberInfo(memberDetails.getMember().getId(), requestDto);
 
-        return ResponseEntity.ok(updateMemberInfo);
+        return ApiResponse.success(updateMemberInfo);
     }
 
 }
