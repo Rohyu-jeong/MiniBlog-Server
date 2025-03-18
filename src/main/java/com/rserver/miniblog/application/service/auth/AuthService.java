@@ -3,7 +3,6 @@ package com.rserver.miniblog.application.service.auth;
 import com.rserver.miniblog.application.dto.internal.IssueTokenInfo;
 import com.rserver.miniblog.application.dto.request.LoginRequestDto;
 import com.rserver.miniblog.application.dto.AuthToken;
-import com.rserver.miniblog.application.dto.response.LoginResponseDto;
 import com.rserver.miniblog.infrastructure.security.MemberDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
