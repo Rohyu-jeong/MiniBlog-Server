@@ -50,7 +50,7 @@ public class Post {
         return new Post(memberId, title, content, imageUrl);
     }
 
-    public void updatePost (String newTitle, String newContent, String newImageUrl) {
+    public void updatePost(String newTitle, String newContent, String newImageUrl) {
         this.title = newTitle;
         this.content = newContent;
         this.imageUrl = newImageUrl;
