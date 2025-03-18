@@ -1,6 +1,6 @@
 package com.rserver.miniblog.application.service.member;
 
-import com.rserver.miniblog.application.dto.request.SignUpRequestDto;
+import com.rserver.miniblog.application.dto.request.SignUpRequest;
 import com.rserver.miniblog.exception.DuplicateException;
 import com.rserver.miniblog.infrastructure.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,15 +14,15 @@ public class DuplicateCheck {
 
     private final MemberRepository memberRepository;
 
-    public void validateForRegistration(SignUpRequestDto requestDto) throws DuplicateException {
+    public void validateForRegistration(SignUpRequest requestDto) throws DuplicateException {
         checkUsername(requestDto.getUsername());
+        checkNickname(requestDto.getNickname());
         checkEmail(requestDto.getEmail());
         checkPhoneNumber(requestDto.getPhoneNumber());
     }
 
     public void checkUsername(String username) {
         if(memberRepository.existsByUsername(username)) {
-            log.warn("중복된 아이디 발견: {}", username);
             throw new DuplicateException("이미 사용중인 아이디입니다.");
         }
     }
