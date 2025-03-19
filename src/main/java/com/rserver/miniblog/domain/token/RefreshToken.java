@@ -56,34 +56,29 @@ public class RefreshToken {
         validateToken(token);
         validateDeviceInfo(deviceInfo);
         validateIpAddress(ipAddress);
-        checkExpiration();
     }
 
-    public void validateExpiration() {
-        checkExpiration();
+    public void validateToken() {
+        if (LocalDateTime.now().isAfter(expireAt)) {
+            throw new InvalidTokenException(TOKEN_EXPIRED);
+        }
     }
 
     private void validateToken(String token) {
         if (!this.refreshToken.equals(token)) {
-            throw new InvalidTokenException(TOKEN_MISMATCH.getMessage());
+            throw new InvalidTokenException(TOKEN_MISMATCH);
         }
     }
 
     private void validateDeviceInfo(String deviceInfo) {
         if (!this.deviceInfo.equals(deviceInfo)) {
-            throw new InvalidTokenException(DEVICE_INFO_MISMATCH.getMessage());
+            throw new InvalidTokenException(DEVICE_INFO_MISMATCH);
         }
     }
 
     private void validateIpAddress(String ipAddress) {
         if (!this.ipAddress.equals(ipAddress)) {
-            throw new InvalidTokenException(IP_MISMATCH.getMessage());
-        }
-    }
-
-    private void checkExpiration() {
-        if (LocalDateTime.now().isAfter(expireAt)) {
-            throw new InvalidTokenException(TOKEN_EXPIRED.getMessage());
+            throw new InvalidTokenException(IP_MISMATCH);
         }
     }
 
