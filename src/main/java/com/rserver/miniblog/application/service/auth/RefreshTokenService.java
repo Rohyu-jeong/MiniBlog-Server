@@ -37,7 +37,7 @@ public class RefreshTokenService {
 
     public RefreshToken find(String refreshToken) {
         return refreshTokenRepository.findByRefreshToken(refreshToken)
-                        .orElseThrow(() -> new NotFoundException(TOKEN_NOT_FOUND.getMessage()));
+                        .orElseThrow(() -> new NotFoundException(TOKEN_NOT_FOUND));
     }
 
     public void deleteByToken(String refreshToken) {
