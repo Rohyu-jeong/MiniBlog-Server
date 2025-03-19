@@ -1,7 +1,9 @@
 package com.rserver.miniblog.exception;
 
-public class ImageUploadException extends RuntimeException{
-    public ImageUploadException(String message) {
-        super(message);
+import com.rserver.miniblog.common.BaseMessage;
+
+public class ImageUploadException extends BaseErrorException{
+    public ImageUploadException(BaseMessage errorMessage) {
+        super(errorMessage);
     }
 }
