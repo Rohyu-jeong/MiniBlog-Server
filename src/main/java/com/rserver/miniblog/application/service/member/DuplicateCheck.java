@@ -25,25 +25,25 @@ public class DuplicateCheck {
 
     public void checkUsername(String username) {
         if(memberRepository.existsByUsername(username)) {
-            throw new DuplicateException(USERNAME_DUPLICATE.getMessage());
+            throw new DuplicateException(USERNAME_DUPLICATE);
         }
     }
 
     public void checkEmail(String email) {
         if(memberRepository.existsByEmail(email)) {
-            throw new DuplicateException(EMAIL_DUPLICATE.getMessage());
+            throw new DuplicateException(EMAIL_DUPLICATE);
         }
     }
 
     public void checkPhoneNumber(String phoneNumber) {
         if(memberRepository.existsByPhoneNumber(phoneNumber)) {
-            throw new DuplicateException(PHONE_DUPLICATE.getMessage());
+            throw new DuplicateException(PHONE_DUPLICATE);
         }
     }
 
     public void checkNickname(String nickname) {
         if(memberRepository.existsByNickname(nickname)) {
-            throw new DuplicateException(NICKNAME_DUPLICATE.getMessage());
+            throw new DuplicateException(NICKNAME_DUPLICATE);
         }
     }
 
