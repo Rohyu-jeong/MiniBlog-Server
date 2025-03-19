@@ -28,7 +28,7 @@ public class BlacklistService {
 
     public void isTokenBlacklisted(String token) {
         if (tokenBlacklistRepository.existsByToken(token)) {
-            throw new InvalidTokenException(BLACKLISTED_TOKEN.getMessage());
+            throw new InvalidTokenException(BLACKLISTED_TOKEN);
         }
     }
 
