@@ -1,6 +1,6 @@
 package com.rserver.miniblog.presentaion.controller;
 
-import com.rserver.miniblog.application.dto.request.CommentRequestDto;
+import com.rserver.miniblog.application.dto.request.CommentRequest;
 import com.rserver.miniblog.application.dto.response.ApiResponse;
 import com.rserver.miniblog.application.service.post.CommentService;
 import com.rserver.miniblog.infrastructure.security.MemberDetails;
@@ -19,7 +19,7 @@ public class CommentController {
 
     @PostMapping
     public ApiResponse<Void> createComment(
-            @Validated @RequestBody CommentRequestDto requestDto,
+            @Validated @RequestBody CommentRequest requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
         commentService.create(memberDetails.getMember().getId(), requestDto);
@@ -30,7 +30,7 @@ public class CommentController {
     @PatchMapping("/{commentId}")
     public ApiResponse<Void> updateComment(
             @PathVariable Long commentId,
-            @Validated @RequestBody CommentRequestDto requestDto,
+            @Validated @RequestBody CommentRequest requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
         commentService.update(memberDetails.getMember().getId(), commentId, requestDto);
