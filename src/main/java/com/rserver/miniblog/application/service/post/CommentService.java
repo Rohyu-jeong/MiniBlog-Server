@@ -1,6 +1,6 @@
 package com.rserver.miniblog.application.service.post;
 
-import com.rserver.miniblog.application.dto.request.CommentRequestDto;
+import com.rserver.miniblog.application.dto.request.CommentRequest;
 import com.rserver.miniblog.domain.post.Comment;
 import com.rserver.miniblog.exception.BadRequestException;
 import com.rserver.miniblog.exception.NotFoundException;
@@ -17,13 +17,13 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
 
-    public void create(Long memberId, CommentRequestDto requestDto) {
+    public void create(Long memberId, CommentRequest requestDto) {
         Comment comment = Comment.createComment(memberId, requestDto.getPostId(), requestDto.getContent());
 
         commentRepository.save(comment);
     }
 
-    public void update(Long memberId, Long CommentId, CommentRequestDto requestDto) {
+    public void update(Long memberId, Long CommentId, CommentRequest requestDto) {
         Comment comment = commentRepository.findById(CommentId)
                 .orElseThrow(() -> new NotFoundException("댓글을 찾을 수 없습니다."));
 
