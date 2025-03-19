@@ -1,7 +1,9 @@
 package com.rserver.miniblog.exception;
 
-public class InvalidTokenException extends RuntimeException {
-    public InvalidTokenException(String message) {
-        super(message);
+import com.rserver.miniblog.common.BaseMessage;
+
+public class InvalidTokenException extends BaseErrorException {
+    public InvalidTokenException(BaseMessage errorMessage) {
+        super(errorMessage);
     }
 }
