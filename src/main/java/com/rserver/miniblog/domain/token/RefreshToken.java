@@ -10,6 +10,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import static com.rserver.miniblog.domain.token.TokenErrorMessage.*;
+
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -63,25 +65,25 @@ public class RefreshToken {
 
     private void validateToken(String token) {
         if (!this.refreshToken.equals(token)) {
-            throw new InvalidTokenException("리프레시 토큰이 일치하지 않습니다.");
+            throw new InvalidTokenException(TOKEN_MISMATCH.getMessage());
         }
     }
 
     private void validateDeviceInfo(String deviceInfo) {
         if (!this.deviceInfo.equals(deviceInfo)) {
-            throw new InvalidTokenException("디바이스 정보가 일치하지 않습니다.");
+            throw new InvalidTokenException(DEVICE_INFO_MISMATCH.getMessage());
         }
     }
 
     private void validateIpAddress(String ipAddress) {
         if (!this.ipAddress.equals(ipAddress)) {
-            throw new InvalidTokenException("IP 주소가 일치하지 않습니다.");
+            throw new InvalidTokenException(IP_MISMATCH.getMessage());
         }
     }
 
     private void checkExpiration() {
         if (LocalDateTime.now().isAfter(expireAt)) {
-            throw new InvalidTokenException("토큰이 만료되었습니다.");
+            throw new InvalidTokenException(TOKEN_EXPIRED.getMessage());
         }
     }
 
