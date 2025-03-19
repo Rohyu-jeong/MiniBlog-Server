@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+import static com.rserver.miniblog.domain.token.TokenErrorMessage.*;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -26,7 +28,7 @@ public class BlacklistService {
 
     public void isTokenBlacklisted(String token) {
         if (tokenBlacklistRepository.existsByToken(token)) {
-            throw new InvalidTokenException("블랙리스트에 등록된 토큰입니다.");
+            throw new InvalidTokenException(BLACKLISTED_TOKEN.getMessage());
         }
     }
 
