@@ -37,7 +37,7 @@ public class JwtManager implements AuthTokenManager{
 
         RefreshToken token = refreshTokenService.find(refreshToken);
 
-        token.validateExpiration();
+        token.validateToken();
 
         Member member = memberService.findMember(token.getMemberId());
 
