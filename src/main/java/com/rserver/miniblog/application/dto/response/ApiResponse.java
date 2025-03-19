@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import static com.rserver.miniblog.common.SuccessMessage.*;
+
 @RequiredArgsConstructor
 @Getter
 public class ApiResponse<T> {
@@ -14,11 +16,11 @@ public class ApiResponse<T> {
     private final T data;
 
     public static <T> ApiResponse<T> success(T data) {
-        return new ApiResponse<>(200, "success", data);
+        return new ApiResponse<>(SUCCESS.getStatus().value(), SUCCESS.getMessage(), data);
     }
 
     public static <T> ApiResponse<T> success() {
-        return new ApiResponse<>(200, "success", null);
+        return new ApiResponse<>(SUCCESS.getStatus().value(), SUCCESS.getMessage(), null);
     }
 
     public static <T> ApiResponse<T> error(int status, String message) {
