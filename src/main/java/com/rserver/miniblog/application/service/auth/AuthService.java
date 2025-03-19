@@ -1,7 +1,7 @@
 package com.rserver.miniblog.application.service.auth;
 
-import com.rserver.miniblog.application.dto.internal.IssueTokenInfo;
-import com.rserver.miniblog.application.dto.request.LoginRequestDto;
+import com.rserver.miniblog.application.dto.internal.IssueTokenData;
+import com.rserver.miniblog.application.dto.request.LoginRequest;
 import com.rserver.miniblog.application.dto.AuthToken;
 import com.rserver.miniblog.infrastructure.security.MemberDetails;
 import lombok.RequiredArgsConstructor;
@@ -20,25 +20,25 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final AuthTokenManager authTokenManager;
 
-    public AuthToken login(LoginRequestDto requestDto, String ipAddress) {
+    public AuthToken login(LoginRequest requestDto, String ipAddress) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(requestDto.getUsername().toLowerCase(), requestDto.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         MemberDetails memberDetails = (MemberDetails) authentication.getPrincipal();
 
-        IssueTokenInfo issueTokenInfo = IssueTokenInfo.from(memberDetails.getMember(), requestDto.getDeviceInfo(), ipAddress);
+        IssueTokenData issueTokenData = IssueTokenData.from(memberDetails.getMember(), requestDto.getDeviceInfo(), ipAddress);
 
-        return authTokenManager.issueToken(issueTokenInfo);
+        return authTokenManager.issueToken(issueTokenData);
     }
 
     public AuthToken reissue(String refreshToken) {
-        IssueTokenInfo tokenInfo = authTokenManager.validateRefreshToken(refreshToken);
+        IssueTokenData tokenInfo = authTokenManager.validateRefreshToken(refreshToken);
         authTokenManager.revokeRefreshToken(refreshToken);
 
-        IssueTokenInfo issueTokenInfo = IssueTokenInfo.from(tokenInfo.getMember(), tokenInfo.getDeviceInfo(), tokenInfo.getIpAddress());
+        IssueTokenData issueTokenData = IssueTokenData.from(tokenInfo.getMember(), tokenInfo.getDeviceInfo(), tokenInfo.getIpAddress());
 
-        return  authTokenManager.issueToken(issueTokenInfo);
+        return  authTokenManager.issueToken(issueTokenData);
     }
 
     public void logout(String refreshToken) {
