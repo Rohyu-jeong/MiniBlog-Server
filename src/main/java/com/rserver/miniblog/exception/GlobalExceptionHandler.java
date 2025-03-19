@@ -22,12 +22,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidTokenException.class)
     public ApiResponse<Void> handleInvalidTokenException(InvalidTokenException ex) {
-        return ApiResponse.error(HttpStatus.UNAUTHORIZED.value(), "인증 정보가 유효하지 않습니다.");
+        return ApiResponse.error(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
     }
 
     @ExceptionHandler(UnauthorizedException.class)
     public ApiResponse<Void> handleUnauthorizedException(UnauthorizedException ex) {
-        return ApiResponse.error(HttpStatus.UNAUTHORIZED.value(), "인증 정보가 유효하지 않습니다.");
+        return ApiResponse.error(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
     }
 
     @ExceptionHandler(DuplicateException.class)
@@ -37,12 +37,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
     public ApiResponse<Void> handleNotFoundException(NotFoundException ex) {
-        return ApiResponse.error(HttpStatus.NOT_FOUND.value(), "요청한 정보를 찾을 수 없습니다.");
+        return ApiResponse.error(HttpStatus.NOT_FOUND.value(), ex.getMessage());
     }
 
     @ExceptionHandler(BadCredentialsException.class)
     public ApiResponse<Void> handleBadCredentialsException(BadCredentialsException ex) {
-        return ApiResponse.error(HttpStatus.UNAUTHORIZED.value(), "로그인 정보가 일치하지 않습니다.");
+        return ApiResponse.error(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
     }
 
     @ExceptionHandler(BadRequestException.class)
