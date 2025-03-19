@@ -1,6 +1,6 @@
 package com.rserver.miniblog.infrastructure.security.jwt;
 
-import com.rserver.miniblog.application.dto.internal.JwtClaims;
+import com.rserver.miniblog.application.dto.internal.TokenMemberData;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,7 +29,7 @@ public class JwtProvider {
         this.refreshTokenExpiration = refreshTokenExpiration;
     }
 
-    public String generateAccessToken (JwtClaims claimsData) {
+    public String generateAccessToken (TokenMemberData claimsData) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime expiryDate = now.plus(accessTokenExpiration, ChronoUnit.MILLIS);
 
