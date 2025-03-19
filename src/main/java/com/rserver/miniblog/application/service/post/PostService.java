@@ -1,6 +1,6 @@
 package com.rserver.miniblog.application.service.post;
 
-import com.rserver.miniblog.application.dto.response.PostResponseDto;
+import com.rserver.miniblog.application.dto.response.PostResponse;
 import com.rserver.miniblog.domain.post.Post;
 import com.rserver.miniblog.exception.NotFoundException;
 import com.rserver.miniblog.infrastructure.repository.PostRepository;
@@ -42,11 +42,11 @@ public class PostService {
 //        return post.getId();
 //    }
 
-    public PostResponseDto getPostById(Long postId) {
+    public PostResponse getPostById(Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("게시글을 찾을 수 없습니다"));
 
-        return PostResponseDto.of(post.getId(), post.getTitle(), post.getContent(), post.getImageUrl());
+        return PostResponse.of(post.getId(), post.getTitle(), post.getContent(), post.getImageUrl());
     }
 
 }
