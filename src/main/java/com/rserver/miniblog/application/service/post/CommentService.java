@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.rserver.miniblog.domain.post.PostErrorMessage.*;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -25,14 +27,14 @@ public class CommentService {
 
     public void update(Long memberId, Long CommentId, CommentRequest requestDto) {
         Comment comment = commentRepository.findById(CommentId)
-                .orElseThrow(() -> new NotFoundException("댓글을 찾을 수 없습니다."));
+                .orElseThrow(() -> new NotFoundException(COMMENT_NOT_FOUND));
 
         if (!comment.getPostId().equals(requestDto.getPostId())) {
-            throw new BadRequestException("해당 게시글의 댓글이 아닙니다.");
+            throw new BadRequestException(INVALID_COMMENT);
         }
 
         if (!comment.getMemberId().equals(memberId)) {
-            throw new UnauthorizedException("본인의 댓글만 수정할 수 있습니다.");
+            throw new UnauthorizedException(NOT_COMMENT_OWNER);
         }
 
         comment.updateComment(requestDto.getContent());
