@@ -35,17 +35,17 @@ public class MemberService {
 
     public Member findMember(Long memberId) {
         return memberRepository.findById(memberId)
-                .orElseThrow(() -> new NotFoundException(MEMBER_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new NotFoundException(MEMBER_NOT_FOUND));
     }
 
     public String findNickname(String username) {
         return memberRepository.findNicknameByUsername(username)
-                .orElseThrow(() -> new NotFoundException(NICKNAME_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new NotFoundException(NICKNAME_NOT_FOUND));
     }
 
     public void updatePassword(Member member, PasswordUpdateRequest requestDto) {
         if (!passwordEncoder.matches(requestDto.getCurrentPassword(), member.getPassword())) {
-            throw new InvalidTokenException(PASSWORD_NOT_MISMATCH.getMessage());
+            throw new InvalidTokenException(PASSWORD_NOT_MISMATCH);
         }
 
         member.updatePassword(passwordEncoder.encode(requestDto.getNewPassword()));
