@@ -1,6 +1,6 @@
 package com.rserver.miniblog.application.service.member;
 
-import com.rserver.miniblog.application.dto.request.PasswordUpdateRequestDto;
+import com.rserver.miniblog.application.dto.request.PasswordUpdateRequest;
 import com.rserver.miniblog.application.dto.request.SignUpRequest;
 import com.rserver.miniblog.domain.member.Member;
 import com.rserver.miniblog.exception.InvalidTokenException;
@@ -41,7 +41,7 @@ public class MemberService {
                 .orElseThrow(() -> new NotFoundException("닉네임을 찾을 수가 없습니다."));
     }
 
-    public void updatePassword(Member member, PasswordUpdateRequestDto requestDto) {
+    public void updatePassword(Member member, PasswordUpdateRequest requestDto) {
         if (!passwordEncoder.matches(requestDto.getCurrentPassword(), member.getPassword())) {
             throw new InvalidTokenException("현재 비밀번호가 일치하지 않습니다.");
         }
