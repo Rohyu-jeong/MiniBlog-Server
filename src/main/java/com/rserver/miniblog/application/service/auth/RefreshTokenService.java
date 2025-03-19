@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+import static com.rserver.miniblog.domain.token.TokenErrorMessage.*;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -35,7 +37,7 @@ public class RefreshTokenService {
 
     public RefreshToken find(String refreshToken) {
         return refreshTokenRepository.findByRefreshToken(refreshToken)
-                        .orElseThrow(() -> new NotFoundException("Refresh Token 정보를 찾을 수가 없습니다."));
+                        .orElseThrow(() -> new NotFoundException(TOKEN_NOT_FOUND.getMessage()));
     }
 
     public void deleteByToken(String refreshToken) {
