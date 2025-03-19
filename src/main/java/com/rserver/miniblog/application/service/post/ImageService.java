@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import static com.rserver.miniblog.domain.post.PostErrorMessage.IMAGE_UPLOAD_FAILED;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -34,7 +36,7 @@ public class ImageService {
 
             return "/uploads/" + fileName;
         } catch (IOException e) {
-            throw new ImageUploadException("이미지 저장 실패: " + e.getMessage());
+            throw new ImageUploadException(IMAGE_UPLOAD_FAILED);
         }
     }
 }
