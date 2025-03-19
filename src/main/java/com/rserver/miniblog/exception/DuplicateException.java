@@ -1,7 +1,9 @@
 package com.rserver.miniblog.exception;
 
-public class DuplicateException extends RuntimeException{
-    public DuplicateException(String message) {
-        super(message);
+import com.rserver.miniblog.common.BaseMessage;
+
+public class DuplicateException extends BaseErrorException{
+    public DuplicateException(BaseMessage errorMessage) {
+        super(errorMessage);
     }
 }
