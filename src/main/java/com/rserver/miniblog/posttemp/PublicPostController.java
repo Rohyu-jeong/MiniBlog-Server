@@ -1,6 +1,6 @@
 package com.rserver.miniblog.posttemp;
 
-import com.rserver.miniblog.application.dto.response.PostResponseDto;
+import com.rserver.miniblog.application.dto.response.PostResponse;
 import com.rserver.miniblog.application.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,8 +30,8 @@ public class PublicPostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<PostResponseDto> getPost (@PathVariable Long postId) {
-        PostResponseDto post = postService.getPostById(postId);
+    public ResponseEntity<PostResponse> getPost (@PathVariable Long postId) {
+        PostResponse post = postService.getPostById(postId);
 
         return ResponseEntity.ok(post);
     }
