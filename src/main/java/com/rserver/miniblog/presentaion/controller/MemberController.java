@@ -1,10 +1,10 @@
 package com.rserver.miniblog.presentaion.controller;
 
-import com.rserver.miniblog.application.dto.request.MemberUpdateRequestDto;
-import com.rserver.miniblog.application.dto.request.PasswordUpdateRequestDto;
+import com.rserver.miniblog.application.dto.request.MemberUpdateRequest;
+import com.rserver.miniblog.application.dto.request.PasswordUpdateRequest;
 import com.rserver.miniblog.application.dto.request.SignUpRequest;
 import com.rserver.miniblog.application.dto.response.ApiResponse;
-import com.rserver.miniblog.application.dto.response.MemberResponseDto;
+import com.rserver.miniblog.application.dto.response.MemberResponse;
 import com.rserver.miniblog.application.service.member.AccountService;
 import com.rserver.miniblog.infrastructure.security.MemberDetails;
 import jakarta.validation.Valid;
@@ -32,7 +32,7 @@ public class MemberController {
 
     @PatchMapping("/password")
     public ApiResponse<Void> updatePassword(
-            @Valid @RequestBody PasswordUpdateRequestDto requestDto,
+            @Valid @RequestBody PasswordUpdateRequest requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
         accountService.updatePassword(memberDetails.getMember().getId(), requestDto);
@@ -41,20 +41,20 @@ public class MemberController {
     }
 
     @GetMapping("/contact")
-    public ApiResponse<MemberResponseDto> getMemberInfo(
+    public ApiResponse<MemberResponse> getMemberInfo(
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
-        MemberResponseDto memberInfo = accountService.getMemberInfo(memberDetails.getMember().getId());
+        MemberResponse memberInfo = accountService.getMemberInfo(memberDetails.getMember().getId());
 
         return ApiResponse.success(memberInfo);
     }
 
     @PatchMapping("/contact")
-    public ApiResponse<MemberResponseDto> updateMemberInfo(
-            @Valid @RequestBody MemberUpdateRequestDto requestDto,
+    public ApiResponse<MemberResponse> updateMemberInfo(
+            @Valid @RequestBody MemberUpdateRequest requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
-        MemberResponseDto updateMemberInfo = accountService.updateMemberInfo(memberDetails.getMember().getId(), requestDto);
+        MemberResponse updateMemberInfo = accountService.updateMemberInfo(memberDetails.getMember().getId(), requestDto);
 
         return ApiResponse.success(updateMemberInfo);
     }
