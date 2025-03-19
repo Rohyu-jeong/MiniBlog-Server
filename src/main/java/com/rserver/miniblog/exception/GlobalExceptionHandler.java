@@ -20,40 +20,16 @@ public class GlobalExceptionHandler {
         return ApiResponse.error(HttpStatus.BAD_REQUEST.value(), errorMessage);
     }
 
-    @ExceptionHandler(InvalidTokenException.class)
-    public ApiResponse<Void> handleInvalidTokenException(InvalidTokenException ex) {
-        return ApiResponse.error(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
-    }
-
-    @ExceptionHandler(UnauthorizedException.class)
-    public ApiResponse<Void> handleUnauthorizedException(UnauthorizedException ex) {
-        return ApiResponse.error(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
-    }
-
-    @ExceptionHandler(DuplicateException.class)
-    public ApiResponse<Void> handleDuplicateException(DuplicateException ex) {
-        return ApiResponse.error(HttpStatus.CONFLICT.value(), ex.getMessage());
-    }
-
-    @ExceptionHandler(NotFoundException.class)
-    public ApiResponse<Void> handleNotFoundException(NotFoundException ex) {
-        return ApiResponse.error(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+    @ExceptionHandler(BaseErrorException.class)
+    public ApiResponse<Void> handleCustomExceptions(BaseErrorException ex) {
+        return ApiResponse.error(ex.getErrorMessage().getStatus().value(), ex.getErrorMessage().getMessage());
     }
 
     @ExceptionHandler(BadCredentialsException.class)
     public ApiResponse<Void> handleBadCredentialsException(BadCredentialsException ex) {
-        return ApiResponse.error(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
+        return ApiResponse.error(HttpStatus.UNAUTHORIZED.value(), "로그인 정보가 일치하지 않습니다.");
     }
 
-    @ExceptionHandler(BadRequestException.class)
-    public ApiResponse<Void> handleBadRequestException(BadRequestException ex) {
-        return ApiResponse.error(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-    }
-
-    @ExceptionHandler(ImageUploadException.class)
-    public ApiResponse<Void> handleImageUploadException(ImageUploadException ex) {
-        return ApiResponse.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "이미지 업로드 실패: " + ex.getMessage());
-    }
 
     @ExceptionHandler(Exception.class)
     public ApiResponse<Void> handleAllExceptions(Exception ex) {
