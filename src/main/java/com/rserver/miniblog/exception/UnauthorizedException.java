@@ -1,7 +1,9 @@
 package com.rserver.miniblog.exception;
 
-public class UnauthorizedException extends RuntimeException{
-    public UnauthorizedException(String message) {
-        super(message);
+import com.rserver.miniblog.common.BaseMessage;
+
+public class UnauthorizedException extends BaseErrorException{
+    public UnauthorizedException(BaseMessage errorMessage) {
+        super(errorMessage);
     }
 }
