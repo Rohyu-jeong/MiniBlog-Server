@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/comments")
-@Validated
 @RequiredArgsConstructor
 public class CommentController {
 
