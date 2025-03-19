@@ -1,7 +1,7 @@
 package com.rserver.miniblog.presentaion.controller;
 
-import com.rserver.miniblog.application.dto.request.LoginRequestDto;
-import com.rserver.miniblog.application.dto.request.RefreshTokenRequestDto;
+import com.rserver.miniblog.application.dto.request.LoginRequest;
+import com.rserver.miniblog.application.dto.request.RefreshTokenRequest;
 import com.rserver.miniblog.application.dto.AuthToken;
 import com.rserver.miniblog.application.dto.response.ApiResponse;
 import com.rserver.miniblog.application.dto.response.LoginResponse;
@@ -26,7 +26,7 @@ public class AuthController {
     private final MemberService memberService;
 
     @PostMapping("/login")
-    public ApiResponse<LoginResponse> login(@Valid @RequestBody LoginRequestDto requestDto, HttpServletRequest request) {
+    public ApiResponse<LoginResponse> login(@Valid @RequestBody LoginRequest requestDto, HttpServletRequest request) {
         String ipAddress = request.getRemoteAddr();
         AuthToken authToken = authService.login(requestDto, ipAddress);
         String nickname = memberService.findNickname(requestDto.getUsername());
@@ -37,14 +37,14 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ApiResponse<Void> logout(@Valid @RequestBody RefreshTokenRequestDto requestDto) {
+    public ApiResponse<Void> logout(@Valid @RequestBody RefreshTokenRequest requestDto) {
         authService.logout(requestDto.getRefreshToken());
 
         return ApiResponse.success();
     }
 
     @PostMapping("/reissue")
-    public ApiResponse<AuthToken> reissue(@Valid @RequestBody RefreshTokenRequestDto requestDto) {
+    public ApiResponse<AuthToken> reissue(@Valid @RequestBody RefreshTokenRequest requestDto) {
         AuthToken authToken = authService.reissue(requestDto.getRefreshToken());
 
         return ApiResponse.success(authToken);
