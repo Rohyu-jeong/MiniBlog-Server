@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import static com.rserver.miniblog.domain.member.MemberErrorMessage.*;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -33,17 +35,17 @@ public class MemberService {
 
     public Member findMember(Long memberId) {
         return memberRepository.findById(memberId)
-                .orElseThrow(() -> new NotFoundException("멤버 정보를 찾을 수가 없습니다."));
+                .orElseThrow(() -> new NotFoundException(MEMBER_NOT_FOUND.getMessage()));
     }
 
     public String findNickname(String username) {
         return memberRepository.findNicknameByUsername(username)
-                .orElseThrow(() -> new NotFoundException("닉네임을 찾을 수가 없습니다."));
+                .orElseThrow(() -> new NotFoundException(NICKNAME_NOT_FOUND.getMessage()));
     }
 
     public void updatePassword(Member member, PasswordUpdateRequest requestDto) {
         if (!passwordEncoder.matches(requestDto.getCurrentPassword(), member.getPassword())) {
-            throw new InvalidTokenException("현재 비밀번호가 일치하지 않습니다.");
+            throw new InvalidTokenException(PASSWORD_NOT_MISMATCH.getMessage());
         }
 
         member.updatePassword(passwordEncoder.encode(requestDto.getNewPassword()));
