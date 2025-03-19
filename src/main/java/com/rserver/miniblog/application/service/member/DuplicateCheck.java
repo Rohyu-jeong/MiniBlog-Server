@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import static com.rserver.miniblog.domain.member.MemberErrorMessage.*;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -23,25 +25,25 @@ public class DuplicateCheck {
 
     public void checkUsername(String username) {
         if(memberRepository.existsByUsername(username)) {
-            throw new DuplicateException("이미 사용중인 아이디입니다.");
+            throw new DuplicateException(USERNAME_DUPLICATE.getMessage());
         }
     }
 
     public void checkEmail(String email) {
         if(memberRepository.existsByEmail(email)) {
-            throw new DuplicateException("이미 사용중인 이메일입니다.");
+            throw new DuplicateException(EMAIL_DUPLICATE.getMessage());
         }
     }
 
     public void checkPhoneNumber(String phoneNumber) {
         if(memberRepository.existsByPhoneNumber(phoneNumber)) {
-            throw new DuplicateException("이미 사용중인 전화번호입니다.");
+            throw new DuplicateException(PHONE_DUPLICATE.getMessage());
         }
     }
 
     public void checkNickname(String nickname) {
         if(memberRepository.existsByNickname(nickname)) {
-            throw new DuplicateException("이미 사용중인 닉네임입니다.");
+            throw new DuplicateException(NICKNAME_DUPLICATE.getMessage());
         }
     }
 
