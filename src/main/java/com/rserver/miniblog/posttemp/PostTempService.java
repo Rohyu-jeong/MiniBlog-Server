@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.rserver.miniblog.domain.post.PostErrorMessage.*;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -23,10 +25,10 @@ public class PostTempService {
 
     public Long update(Long memberId, Long postId, PostTempRequestDto requestDto) {
         PostTemp post = postTempRepository.findById(postId)
-                .orElseThrow(() -> new NotFoundException("게시글을 찾을 수 없습니다."));
+                .orElseThrow(() -> new NotFoundException(POST_NOT_FOUND));
 
         if (!post.getMemberId().equals(memberId)) {
-            throw new UnauthorizedException("본인이 작성한 게시글만 수정할 수 있습니다.");
+            throw new UnauthorizedException(NOT_POST_OWNER);
         }
 
         post.updatePostTemp(requestDto.getTitle(), requestDto.getContent(), requestDto.getImage());
@@ -36,7 +38,7 @@ public class PostTempService {
 
     public PostTempResponseDto getPostById(Long postId) {
         PostTemp post = postTempRepository.findById(postId)
-                .orElseThrow(() -> new NotFoundException("게시글을 찾을 수 없습니다"));
+                .orElseThrow(() -> new NotFoundException(POST_NOT_FOUND));
 
         return PostTempResponseDto.of(post.getId(), post.getTitle(), post.getContent(), post.getImage());
     }
