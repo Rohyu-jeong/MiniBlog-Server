@@ -1,7 +1,9 @@
 package com.rserver.miniblog.exception;
 
-public class NotFoundException extends RuntimeException{
-    public NotFoundException(String message) {
-        super(message);
+import com.rserver.miniblog.common.BaseMessage;
+
+public class NotFoundException extends BaseErrorException{
+    public NotFoundException(BaseMessage errorMessage) {
+        super(errorMessage);
     }
 }
