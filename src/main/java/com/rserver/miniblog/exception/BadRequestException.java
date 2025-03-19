@@ -1,7 +1,9 @@
 package com.rserver.miniblog.exception;
 
-public class BadRequestException extends RuntimeException{
-    public BadRequestException(String message) {
-        super(message);
+import com.rserver.miniblog.common.BaseMessage;
+
+public class BadRequestException extends BaseErrorException{
+    public BadRequestException(BaseMessage errorMessage) {
+        super(errorMessage);
     }
 }
