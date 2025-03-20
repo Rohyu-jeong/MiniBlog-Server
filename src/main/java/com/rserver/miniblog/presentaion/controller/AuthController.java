@@ -6,11 +6,10 @@ import com.rserver.miniblog.application.dto.AuthToken;
 import com.rserver.miniblog.application.dto.response.ApiResponse;
 import com.rserver.miniblog.application.dto.response.LoginResponse;
 import com.rserver.miniblog.application.service.auth.AuthService;
-import com.rserver.miniblog.application.service.member.MemberService;
+import com.rserver.miniblog.application.support.member.MemberReader;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,13 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
-    private final MemberService memberService;
+    private final MemberReader memberReader;
 
     @PostMapping("/login")
     public ApiResponse<LoginResponse> login(@Valid @RequestBody LoginRequest requestDto, HttpServletRequest request) {
         String ipAddress = request.getRemoteAddr();
         AuthToken authToken = authService.login(requestDto, ipAddress);
-        String nickname = memberService.findNickname(requestDto.getUsername());
+        String nickname = memberReader.findNickname(requestDto.getUsername());
 
         LoginResponse responseDto = LoginResponse.of(authToken, nickname);
 
