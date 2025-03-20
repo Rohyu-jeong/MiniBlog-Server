@@ -5,7 +5,6 @@ import com.rserver.miniblog.exception.InvalidTokenException;
 import com.rserver.miniblog.infrastructure.repository.TokenBlacklistRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,12 +29,6 @@ public class BlacklistService {
         if (tokenBlacklistRepository.existsByToken(token)) {
             throw new InvalidTokenException(BLACKLISTED_TOKEN);
         }
-    }
-
-    @Scheduled(cron = "0 0 0 * * ?")
-    public void delete() {
-        int deleteCount = tokenBlacklistRepository.deleteByExpireAtBefore(LocalDateTime.now());
-        log.info("Expired tokens deleted: {}", deleteCount);
     }
 
 }
