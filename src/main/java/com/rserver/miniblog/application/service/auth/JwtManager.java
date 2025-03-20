@@ -3,7 +3,7 @@ package com.rserver.miniblog.application.service.auth;
 import com.rserver.miniblog.application.dto.internal.TokenMemberData;
 import com.rserver.miniblog.application.dto.internal.IssueTokenData;
 import com.rserver.miniblog.application.dto.AuthToken;
-import com.rserver.miniblog.application.service.member.MemberService;
+import com.rserver.miniblog.application.support.member.MemberReader;
 import com.rserver.miniblog.domain.member.Member;
 import com.rserver.miniblog.domain.token.RefreshToken;
 import com.rserver.miniblog.infrastructure.security.jwt.JwtProvider;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JwtManager implements AuthTokenManager{
 
-    private final MemberService memberService;
+    private final MemberReader memberReader;
     private final RefreshTokenService refreshTokenService;
     private final BlacklistService blacklistService;
     private final JwtProvider jwtProvider;
@@ -39,7 +39,7 @@ public class JwtManager implements AuthTokenManager{
 
         token.validateToken();
 
-        Member member = memberService.findMember(token.getMemberId());
+        Member member = memberReader.findMember(token.getMemberId());
 
         return IssueTokenData.from(member, token.getDeviceInfo(), token.getIpAddress());
     }
