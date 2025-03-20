@@ -4,9 +4,9 @@ import com.rserver.miniblog.application.dto.request.CommentRequest;
 import com.rserver.miniblog.application.dto.response.ApiResponse;
 import com.rserver.miniblog.application.service.post.CommentService;
 import com.rserver.miniblog.infrastructure.security.MemberDetails;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,7 +18,7 @@ public class CommentController {
 
     @PostMapping
     public ApiResponse<Void> createComment(
-            @Validated @RequestBody CommentRequest requestDto,
+            @Valid @RequestBody CommentRequest requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
         commentService.create(memberDetails.getMember().getId(), requestDto);
@@ -29,7 +29,7 @@ public class CommentController {
     @PatchMapping("/{commentId}")
     public ApiResponse<Void> updateComment(
             @PathVariable Long commentId,
-            @Validated @RequestBody CommentRequest requestDto,
+            @Valid @RequestBody CommentRequest requestDto,
             @AuthenticationPrincipal MemberDetails memberDetails
     ) {
         commentService.update(memberDetails.getMember().getId(), commentId, requestDto);
