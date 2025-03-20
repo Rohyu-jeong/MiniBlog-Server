@@ -4,6 +4,7 @@ import com.rserver.miniblog.application.dto.request.MemberUpdateRequest;
 import com.rserver.miniblog.application.dto.request.PasswordUpdateRequest;
 import com.rserver.miniblog.application.dto.request.SignUpRequest;
 import com.rserver.miniblog.application.dto.response.MemberResponse;
+import com.rserver.miniblog.application.support.member.DuplicateChecker;
 import com.rserver.miniblog.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AccountService {
 
-    private final DuplicateCheck duplicateCheck;
+    private final DuplicateChecker duplicateChecker;
     private final MemberService memberService;
 
     public void register(SignUpRequest requestDto) {
-        duplicateCheck.validateForRegistration(requestDto);
+        duplicateChecker.validateForRegistration(requestDto);
         memberService.create(requestDto);
     }
 
@@ -37,17 +38,17 @@ public class AccountService {
         Member member = memberService.findMember(memberId);
 
         if (!member.getEmail().equals(requestDto.getEmail())) {
-            duplicateCheck.checkEmail(requestDto.getEmail());
+            duplicateChecker.checkEmail(requestDto.getEmail());
             member.updateEmail(requestDto.getEmail());
         }
 
         if (!member.getPhoneNumber().equals(requestDto.getPhoneNumber())) {
-            duplicateCheck.checkPhoneNumber(requestDto.getPhoneNumber());
+            duplicateChecker.checkPhoneNumber(requestDto.getPhoneNumber());
             member.updatePhoneNumber(requestDto.getPhoneNumber());
         }
 
         if (!member.getNickname().equals(requestDto.getNickname())) {
-            duplicateCheck.checkNickname(requestDto.getNickname());
+            duplicateChecker.checkNickname(requestDto.getNickname());
             member.updateNickname(requestDto.getNickname());
         }
 
