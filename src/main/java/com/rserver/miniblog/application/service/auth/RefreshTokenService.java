@@ -6,11 +6,8 @@ import com.rserver.miniblog.infrastructure.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 import static com.rserver.miniblog.domain.token.TokenErrorMessage.*;
 
@@ -44,12 +41,6 @@ public class RefreshTokenService {
 
     public void deleteByToken(String refreshToken) {
         refreshTokenRepository.deleteByRefreshToken(refreshToken);
-    }
-
-    @Scheduled(cron = "0 0 0,12 * * ?")
-    public void deleteExpiredTokens() {
-        int deleteCount = refreshTokenRepository.deleteByExpireAtBefore(LocalDateTime.now());
-        log.info("Expired tokens deleted: {}", deleteCount);
     }
 
 }
