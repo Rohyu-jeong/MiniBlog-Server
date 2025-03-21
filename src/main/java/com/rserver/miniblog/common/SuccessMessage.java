@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 @Getter
 public enum SuccessMessage implements BaseMessage{
-    SUCCESS(HttpStatus.OK, "SUCCESS");
+    SUCCESS(200, "SUCCESS");
 
-    private final HttpStatus status;
+    private final int status;
     private final String message;
 }
