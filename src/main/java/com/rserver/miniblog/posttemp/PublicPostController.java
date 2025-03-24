@@ -1,7 +1,7 @@
 package com.rserver.miniblog.posttemp;
 
-import com.rserver.miniblog.application.dto.response.PostResponse;
-import com.rserver.miniblog.application.service.post.PostService;
+import com.rserver.miniblog.post.presentation.dto.response.PostResponse;
+import com.rserver.miniblog.post.application.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
