@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.rserver.miniblog.domain.post.PostErrorMessage.*;
+import static com.rserver.miniblog.post.domain.PostErrorMessage.*;
 
 @Service
 @RequiredArgsConstructor
