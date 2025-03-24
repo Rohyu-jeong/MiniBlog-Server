@@ -1,7 +1,6 @@
 package com.rserver.miniblog.exception;
 
-import com.rserver.miniblog.application.dto.response.ApiResponse;
-import org.springframework.http.HttpStatus;
+import com.rserver.miniblog.common.ApiResponse;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
