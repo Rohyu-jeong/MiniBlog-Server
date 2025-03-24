@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthService {
 
     private final AuthenticationManager authenticationManager;
-    private final TokenProcessor tokenProcessor;
+    private final TokenService tokenService;
 
     public AuthToken login(LoginRequest requestDto, String ipAddress) {
         Authentication authentication = authenticationManager.authenticate(
@@ -29,20 +29,20 @@ public class AuthService {
 
         IssueTokenData issueTokenData = IssueTokenData.from(memberDetails.getMember(), requestDto.getDeviceInfo(), ipAddress);
 
-        return tokenProcessor.issueToken(issueTokenData);
+        return tokenService.issueToken(issueTokenData);
     }
 
     public AuthToken reissue(String refreshToken) {
-        IssueTokenData tokenInfo = tokenProcessor.validateRefreshToken(refreshToken);
-        tokenProcessor.revokeRefreshToken(refreshToken);
+        IssueTokenData tokenInfo = tokenService.validateRefreshToken(refreshToken);
+        tokenService.revokeRefreshToken(refreshToken);
 
         IssueTokenData issueTokenData = IssueTokenData.from(tokenInfo.getMember(), tokenInfo.getDeviceInfo(), tokenInfo.getIpAddress());
 
-        return  tokenProcessor.issueToken(issueTokenData);
+        return  tokenService.issueToken(issueTokenData);
     }
 
     public void logout(String refreshToken) {
-        tokenProcessor.revokeRefreshToken(refreshToken);
+        tokenService.revokeRefreshToken(refreshToken);
     }
 
 }
