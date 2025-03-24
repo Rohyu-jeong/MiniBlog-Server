@@ -16,18 +16,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AccountCommandService {
 
-    private final MemberCommandService memberCommandService;
+    private final MemberOperator memberOperator;
     private final MemberReader memberReader;
     private final DuplicateChecker duplicateChecker;
 
     public void register(SignUpRequest requestDto) {
         duplicateChecker.validateForRegistration(requestDto);
-        memberCommandService.create(requestDto);
+        memberOperator.create(requestDto);
     }
 
     public void updatePassword(Long memberId, PasswordUpdateRequest requestDto) {
         Member member = memberReader.findMember(memberId);
-        memberCommandService.updatePassword(member, requestDto);
+        memberOperator.updatePassword(member, requestDto);
     }
 
     public MemberResponse updateMemberInfo(Long memberId, MemberUpdateRequest requestDto) {
