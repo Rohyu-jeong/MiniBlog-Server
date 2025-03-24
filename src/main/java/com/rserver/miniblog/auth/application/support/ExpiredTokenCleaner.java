@@ -18,13 +18,13 @@ public class ExpiredTokenCleaner {
     private final TokenBlacklistRepository tokenBlacklistRepository;
 
     @Scheduled(cron = "0 0 0,12 * * ?")
-    public void deleteExpiredRefreshTokens() {
+    public void cleanRefreshTokens() {
         int deleteCount = refreshTokenRepository.deleteByExpireAtBefore(LocalDateTime.now());
         log.info("Deleted expired refresh tokens: {}", deleteCount);
     }
 
     @Scheduled(cron = "0 0 0 * * ?")
-    public void deleteExpiredBlacklistTokens() {
+    public void cleanBlacklistTokens() {
         int deleteCount = tokenBlacklistRepository.deleteByExpireAtBefore(LocalDateTime.now());
         log.info("Deleted expired blacklist tokens: {}", deleteCount);
     }
